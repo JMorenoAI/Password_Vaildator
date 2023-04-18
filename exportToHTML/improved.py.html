@@ -1,0 +1,103 @@
+<html>
+<head>
+<title>improved.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #808080;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #629755; font-style: italic;}
+.s3 { color: #cc7832;}
+.s4 { color: #6a8759;}
+.s5 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+improved.py</font>
+</center></td></tr></table>
+<pre><span class="s0">#!/usr/bin/env python3</span>
+
+<span class="s2">&quot;&quot;&quot; 
+My Python Password Validator 
+&quot;&quot;&quot;</span>
+
+<span class="s0"># imports go here.</span>
+<span class="s3">import </span><span class="s1">inspect</span>
+
+<span class="s0"># the following are module level dunders (metadata) for the authorship information.</span>
+<span class="s1">__author__ = </span><span class="s4">'Joshua Moreno'</span>
+<span class="s1">__version__ = </span><span class="s4">'1.0'</span>
+<span class="s1">__date__ = </span><span class="s4">'2023.04.06'</span>
+<span class="s1">__status__ = </span><span class="s4">'Development'</span>
+
+
+<span class="s3">class </span><span class="s1">PasswordValidator:</span>
+    <span class="s1">__UPPERCASE_MIN = </span><span class="s5">2</span>
+    <span class="s1">__LOWERCASE_MIN = </span><span class="s5">2</span>
+    <span class="s1">__DIGITAL_MIN = </span><span class="s5">2</span>
+    <span class="s1">__SYMBOL_MIN = </span><span class="s5">2</span>
+
+    <span class="s3">def </span><span class="s1">__init__(self</span><span class="s3">, </span><span class="s1">password=</span><span class="s3">None, </span><span class="s1">debug_mode=</span><span class="s3">False</span><span class="s1">):</span>
+        <span class="s1">self.__password = password</span>
+        <span class="s1">self.__debug_mode = debug_mode</span>
+
+    <span class="s3">def </span><span class="s1">__str__(self):</span>
+        <span class="s3">if </span><span class="s1">self.__password </span><span class="s3">is None</span><span class="s1">:</span>
+            <span class="s3">return </span><span class="s4">&quot;None&quot;</span>
+        <span class="s3">else</span><span class="s1">:</span>
+            <span class="s3">return </span><span class="s1">self.__password</span>
+
+    <span class="s3">def </span><span class="s1">is_uppercase_valid(self):</span>
+        <span class="s1">count = sum(</span><span class="s5">1 </span><span class="s3">for </span><span class="s1">char </span><span class="s3">in </span><span class="s1">self.__password </span><span class="s3">if </span><span class="s1">char.isupper())</span>
+
+        <span class="s3">if </span><span class="s1">self.__debug_mode:</span>
+            <span class="s1">print(</span><span class="s4">f&quot;</span><span class="s3">{</span><span class="s1">count</span><span class="s3">:</span><span class="s4">3d</span><span class="s3">} </span><span class="s4">= </span><span class="s3">{</span><span class="s1">inspect.currentframe().f_code.co_name</span><span class="s3">}</span><span class="s4">&quot;</span><span class="s1">)</span>
+
+        <span class="s3">if </span><span class="s1">count &gt;= PasswordValidator.__UPPERCASE_MIN:</span>
+            <span class="s3">return True</span>
+        <span class="s3">else</span><span class="s1">:</span>
+            <span class="s1">print(</span><span class="s4">f&quot;Password must have at least </span><span class="s3">{</span><span class="s1">PasswordValidator.__UPPERCASE_MIN</span><span class="s3">} </span><span class="s4">uppercase letters.&quot;</span><span class="s1">)</span>
+            <span class="s3">return False</span>
+
+    <span class="s3">def </span><span class="s1">is_lowercase_valid(self):</span>
+        <span class="s1">count = sum(</span><span class="s5">1 </span><span class="s3">for </span><span class="s1">char </span><span class="s3">in </span><span class="s1">self.__password </span><span class="s3">if </span><span class="s1">char.islower())</span>
+
+        <span class="s3">if </span><span class="s1">self.__debug_mode:</span>
+            <span class="s1">print(</span><span class="s4">f&quot;</span><span class="s3">{</span><span class="s1">count</span><span class="s3">:</span><span class="s4">3d</span><span class="s3">} </span><span class="s4">= </span><span class="s3">{</span><span class="s1">inspect.currentframe().f_code.co_name</span><span class="s3">}</span><span class="s4">&quot;</span><span class="s1">)</span>
+
+        <span class="s3">if </span><span class="s1">count &gt;= PasswordValidator.__LOWERCASE_MIN:</span>
+            <span class="s3">return True</span>
+        <span class="s3">else</span><span class="s1">:</span>
+            <span class="s1">print(</span><span class="s4">f&quot;Password must have at least </span><span class="s3">{</span><span class="s1">PasswordValidator.__LOWERCASE_MIN</span><span class="s3">} </span><span class="s4">lowercase letters.&quot;</span><span class="s1">)</span>
+            <span class="s3">return False</span>
+
+    <span class="s3">def </span><span class="s1">is_valid(self</span><span class="s3">, </span><span class="s1">password=</span><span class="s3">None</span><span class="s1">):</span>
+
+        <span class="s3">if </span><span class="s1">password </span><span class="s3">is None</span><span class="s1">:</span>
+            <span class="s3">raise </span><span class="s1">Exception(</span><span class="s4">&quot;Password can't be empty&quot;</span><span class="s1">)</span>
+
+        <span class="s1">self.__password = password</span>
+
+        <span class="s3">if </span><span class="s1">self.__debug_mode:</span>
+            <span class="s1">print(</span><span class="s4">&quot;===============DEBUG MODE===============&quot;</span><span class="s1">)</span>
+            <span class="s1">print(</span><span class="s4">f&quot;password = </span><span class="s3">{</span><span class="s1">self</span><span class="s3">}</span><span class="s4">&quot;</span><span class="s1">)</span>
+
+        <span class="s1">uppercase_valid = self.is_uppercase_valid()</span>
+        <span class="s1">lowercase_valid = self.is_lowercase_valid()</span>
+
+        <span class="s3">if </span><span class="s1">uppercase_valid </span><span class="s3">and </span><span class="s1">lowercase_valid:</span>
+            <span class="s3">return True</span>
+        <span class="s3">else</span><span class="s1">:</span>
+            <span class="s3">return False</span>
+
+
+<span class="s1">pv = PasswordValidator(debug_mode=</span><span class="s3">True</span><span class="s1">)</span>
+<span class="s3">if </span><span class="s1">pv.is_valid(</span><span class="s4">&quot;A1c!*&quot;</span><span class="s1">):</span>
+    <span class="s1">print(</span><span class="s4">&quot;password valid&quot;</span><span class="s1">)</span>
+<span class="s3">else</span><span class="s1">:</span>
+    <span class="s1">print(</span><span class="s4">&quot;password invalid&quot;</span><span class="s1">)</span>
+</pre>
+</body>
+</html>
